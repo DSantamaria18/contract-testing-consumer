@@ -14,10 +14,10 @@ public class NavesController {
     private static final String STARSHIPS_ENDPOINT = "http://localhost:8080/starship?id=";
 
     @GetMapping("/nave")
-    public Object getNave(@RequestParam(value = "id") Long id) {
+    public Nave getNave(@RequestParam(value = "id") Long id) {
         final RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity responseEntity = restTemplate.getForEntity(STARSHIPS_ENDPOINT + id.toString(), String.class);
+        ResponseEntity<Nave> responseEntity = restTemplate.getForEntity(STARSHIPS_ENDPOINT + id.toString(), Nave.class);
         return responseEntity.getBody();
     }
 }

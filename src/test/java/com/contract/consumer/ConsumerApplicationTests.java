@@ -1,4 +1,3 @@
-package com.contract;
 package com.contract.consumer;
 
 import org.assertj.core.api.BDDAssertions;
@@ -16,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest
 public class ConsumerApplicationTests {
 
-    private static final String STARSHIPS_ENDPOINT = "http://localhost:8080/starship?id=10";
+    private static final String STARSHIPS_ENDPOINT = "http://localhost:6060/starship?id=10";
 
     @Rule
     public StubRunnerRule stubRunnerRule = new StubRunnerRule()
@@ -30,11 +29,11 @@ public class ConsumerApplicationTests {
         RestTemplate restTemplate = new RestTemplate();
 
         // When:
-        ResponseEntity responseEntity = restTemplate.getForEntity(STARSHIPS_ENDPOINT,  Object.class);
+        ResponseEntity<Nave> responseEntity = restTemplate.getForEntity(STARSHIPS_ENDPOINT,  Nave.class);
 
         // Then:
         BDDAssertions.then(responseEntity.getStatusCodeValue()).isEqualTo(200);
-        BDDAssertions.then(responseEntity.getBody().get)
+        BDDAssertions.then(responseEntity.getBody().getName()).isEqualTo("Millennium Falcon");
     }
 
 }
